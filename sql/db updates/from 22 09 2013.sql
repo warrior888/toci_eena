@@ -1,0 +1,21 @@
+insert into panstwo (nazwa) values ('Wielka Brytania');
+insert into panstwo (nazwa) values ('Austria');
+insert into panstwo (nazwa) values ('Czechy');
+insert into panstwo (nazwa) values ('Dania');
+insert into panstwo (nazwa) values ('Grecja');
+insert into panstwo (nazwa) values ('Francja');
+insert into panstwo (nazwa) values ('Hiszpania');
+insert into panstwo (nazwa) values ('Irlandia');
+insert into panstwo (nazwa) values ('Islandia');
+insert into panstwo (nazwa) values ('Luksemburg');
+insert into panstwo (nazwa) values ('Niemcy');
+insert into panstwo (nazwa) values ('Norwegia');
+insert into panstwo (nazwa) values ('Portugalia');
+insert into panstwo (nazwa) values ('S³owenia');
+insert into panstwo (nazwa) values ('Szkocja');
+insert into panstwo (nazwa) values ('Szwecja');
+insert into panstwo (nazwa) values ('USA');
+insert into panstwo (nazwa) values ('W³ochy');
+insert into panstwo (nazwa) values ('Finlandia');
+
+insert into panstwo (nazwa) values ('Inne');

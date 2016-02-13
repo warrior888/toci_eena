@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type='text/xsl' href='_UpgradeReport_Files/UpgradeReport.xslt'?><UpgradeLog>
+<Properties><Property Name="Solution" Value="PDFConverter">
+</Property><Property Name="Solution File" Value="E:\pdf conv\PDFConverter.sln">
+</Property><Property Name="Date" Value="14 marca 2010">
+</Property><Property Name="Time" Value="19:31:40">
+</Property></Properties><Event ErrorLevel="0" Project="PDFConverter" Source="PDFConverter.csproj" Description="Project file successfully backed up as E:\pdf conv\Backup\PDFConverter.csproj">
+</Event><Event ErrorLevel="0" Project="PDFConverter" Source="AssemblyInfo.cs" Description="File successfully backed up as E:\pdf conv\Backup\AssemblyInfo.cs">
+</Event><Event ErrorLevel="0" Project="PDFConverter" Source="Global.cs" Description="File successfully backed up as E:\pdf conv\Backup\Global.cs">
+</Event><Event ErrorLevel="0" Project="PDFConverter" Source="PDFConverter\MainForm.cs" Description="File successfully backed up as E:\pdf conv\Backup\PDFConverter\MainForm.cs">
+</Event><Event ErrorLevel="0" Project="PDFConverter" Source="PDFConverter\Program.cs" Description="File successfully backed up as E:\pdf conv\Backup\PDFConverter\Program.cs">
+</Event><Event ErrorLevel="0" Project="PDFConverter" Source="PDFConverter\Properties\Resources.cs" Description="File successfully backed up as E:\pdf conv\Backup\PDFConverter\Properties\Resources.cs">
+</Event><Event ErrorLevel="0" Project="PDFConverter" Source="PDFConverter\Properties\Settings.cs" Description="File successfully backed up as E:\pdf conv\Backup\PDFConverter\Properties\Settings.cs">
+</Event><Event ErrorLevel="0" Project="PDFConverter" Source="PDFConverter.MainForm.resources" Description="File successfully backed up as E:\pdf conv\Backup\PDFConverter.MainForm.resources">
+</Event><Event ErrorLevel="0" Project="PDFConverter" Source="PDFConverter.Properties.Resources.resources" Description="File successfully backed up as E:\pdf conv\Backup\PDFConverter.Properties.Resources.resources">
+</Event><Event ErrorLevel="0" Project="PDFConverter" Source="PDFConverter.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="PDFConverter" Source="PDFConverter.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="PDFConverter" Source="PDFConverter.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event></UpgradeLog>

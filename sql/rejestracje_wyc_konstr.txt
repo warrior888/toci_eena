@@ -1,0 +1,95 @@
+---- pozbawienie klauzuli not null tabelki formularza rejestracji ....
+
+
+alter table dane_internet ALTER column id_imie drop not null;
+alter table dane_internet ALTER column id_plec drop not null;
+alter table dane_internet ALTER column id_miejscowosc_ur drop not null;
+alter table dane_internet ALTER column id_miejscowosc drop not null;
+
+alter table dane_internet add column imie varchar(20);
+alter table dane_internet add column miejscowosc varchar(30);
+alter table dane_internet add column wyksztalcenie varchar(25);
+alter table dane_internet add column zawod varchar(200);
+
+
+CREATE OR REPLACE FUNCTION updateDIDenormalized() RETURNS trigger AS $$
+declare
+    --imie_id integer;
+begin
+
+    IF (NEW.id_imie is not null) THEN
+        --we have an id, set name for it
+        select into NEW.imie nazwa from imiona where id = NEW.id_imie;
+    ELSIF (NEW.imie is not null) THEN
+        --we do not have id, try to get it
+        select into NEW.id_imie id from imiona where lower(nazwa) = lower(NEW.imie);
+    END IF;
+    
+    IF (NEW.id_miejscowosc is not null) THEN
+        --we have an id, set city for it
+        select into NEW.miejscowosc nazwa from miejscowosc where id = NEW.id_miejscowosc;
+    ELSIF (NEW.miejscowosc is not null) THEN
+        --we do not have id, try to get it
+        select into NEW.id_miejscowosc id from miejscowosc where lower(nazwa) = lower(NEW.miejscowosc);
+    END IF;
+    
+    IF (NEW.id_miejscowosc_ur is not null) THEN
+        --we have an id, set city for it
+        select into NEW.miejscowosc_ur nazwa from miejscowosc where id = NEW.id_miejscowosc_ur;
+    ELSIF (NEW.miejscowosc_ur is not null) THEN
+        --we do not have id, try to get it
+        select into NEW.id_miejscowosc_ur id from miejscowosc where lower(nazwa) = lower(NEW.miejscowosc_ur);
+    END IF;
+    
+    IF (NEW.id_wyksztalcenie is not null) THEN
+        --we have an id, set education for it
+        select into NEW.wyksztalcenie nazwa from wyksztalcenie where id = NEW.id_wyksztalcenie;
+    ELSIF (NEW.wyksztalcenie is not null) THEN
+        --we do not have id, try to get it
+        select into NEW.id_wyksztalcenie id from wyksztalcenie where lower(nazwa) = lower(NEW.wyksztalcenie);
+    END IF;
+    
+    IF (NEW.id_zawod is not null) THEN
+        --we have an id, set profession for it
+        select into NEW.zawod nazwa from zawod where id = NEW.id_zawod;
+    ELSIF (NEW.zawod is not null) THEN
+        --we do not have id, try to get it
+        select into NEW.id_zawod id from zawod where lower(nazwa) = lower(NEW.zawod);
+    END IF;
+    
+    RETURN NEW;
+end;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER updateDenormalizedDi
+    BEFORE INSERT OR UPDATE ON dane_internet
+    FOR EACH ROW
+    EXECUTE PROCEDURE updateDIDenormalized();
+    
+    
+----osoba internet pokaz view to be removed ?
+    drop view osoba_internet;
+    
+create or replace view osoba_internet as 
+    SELECT d_o.id, d_o.id_imie, d_o.imie, d_o.nazwisko, d_o.id_plec, plec.nazwa AS plec, 
+    d_o.data_urodzenia, d_o.id_miejscowosc_ur, d_o.id_miejscowosc, d_o.miejscowosc, d_o.ulica, d_o.kod, d_o.telefon, d_o.komorka, d_o.email, 
+    d_o.id_wyksztalcenie, d_o.wyksztalcenie, d_o.id_zawod, d_o.zawod, d_o.data_zgloszenia, d_o.id_charakter, charakter.nazwa AS charakter, 
+    d_o.data, d_o.ilosc_tyg, d_o.id_ankieta, d_o.id_zrodlo, zrodlo.nazwa AS zrodlo, d_o.source 
+FROM dane_internet d_o
+   JOIN plec ON plec.id = d_o.id_plec
+   JOIN charakter ON charakter.id = d_o.id_charakter
+   JOIN zrodlo ON zrodlo.id = d_o.id_zrodlo;
+    
+    
+--test inserts
+
+insert into dane_internet (imie, nazwisko, id_plec, data_urodzenia, id_miejscowosc_ur, id_miejscowosc, ulica, kod, telefon, id_wyksztalcenie, id_zawod, data_zgloszenia, id_charakter, data, ilosc_tyg, id_ankieta, id_zrodlo, source) values ('Adam', 'Zapart', 1, '1986-09-14', 3, 5, 'szybka', '12-234', 324312456, 3, 8, '2012-09-23', 3, '2012-12-12', 3, 2, 4, 3);
+
+
+insert into dane_internet (imie, nazwisko, id_plec, data_urodzenia, id_miejscowosc_ur, miejscowosc, ulica, kod, telefon, id_wyksztalcenie, id_zawod, data_zgloszenia, id_charakter, data, ilosc_tyg, id_ankieta, id_zrodlo, source) values ('Adam', 'Zapart', 1, '1986-09-14', 3, '£ód¼', 'szybka', '12-234', 324312456, 3, 8, '2012-09-23', 3, '2012-12-12', 3, 2, 4, 3);
+
+
+insert into dane_internet (imie, nazwisko, id_plec, data_urodzenia, id_miejscowosc_ur, miejscowosc, ulica, kod, telefon, wyksztalcenie, zawod, data_zgloszenia, id_charakter, data, ilosc_tyg, id_ankieta, id_zrodlo, source) values ('Adam', 'Zapart', 1, '1986-09-14', 3, '£ód¼', 'szybka', '12-234', 324312456, '¦rednie', 'Informatyk', '2012-09-23', 3, '2012-12-12', 3, 2, 4, 3);
+
+
+insert into dane_internet (imie, nazwisko, id_plec, data_urodzenia, id_miejscowosc_ur, miejscowosc, ulica, kod, telefon, wyksztalcenie, zawod, data_zgloszenia, id_charakter, data, ilosc_tyg, id_ankieta, id_zrodlo, source) values ('Bo¿ys³aw', 'Zapart', 1, '1986-09-14', 3, '£ód¼', 'szybka', '12-234', 324312456, '¦rednie', 'Nierobotny', '2012-09-23', 3, '2012-12-12', 3, 2, 4, 3);

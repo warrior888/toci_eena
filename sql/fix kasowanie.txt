@@ -1,0 +1,45 @@
+alter table poprzedni_pracodawca drop constraint poprzedni_pracodawca_id_fkey;
+
+alter table poprzedni_pracodawca add constraint poprzedni_pracodawca_id_fkey FOREIGN KEY (id) REFERENCES dane_osobowe(id) on update cascade on delete cascade;
+
+
+alter table umiejetnosci_osob drop constraint umiejetnosci_osob_id_fkey;
+
+alter table umiejetnosci_osob add constraint umiejetnosci_osob_id_fkey FOREIGN KEY (id) REFERENCES dane_osobowe(id) on update cascade on delete cascade;
+
+
+alter table dodatkowe_osoby drop constraint dodatkowe_osoby_id_osoby_dod_fkey;
+
+alter table dodatkowe_osoby add constraint dodatkowe_osoby_id_osoby_dod_fkey FOREIGN KEY (id_osoby_dod) REFERENCES dane_osobowe(id) on update cascade  ON DELETE CASCADE;
+
+
+alter table wysylka_sms drop constraint wysylka_sms_id_dane_osobowe_fkey;
+
+alter table wysylka_sms add constraint wysylka_sms_id_dane_osobowe_fkey FOREIGN KEY (id_dane_osobowe) REFERENCES dane_osobowe(id) on update cascade on delete cascade;
+
+
+alter table umowa_ewidencja drop constraint umowa_ewidencja_id_osoba_fkey;
+
+alter table umowa_ewidencja add constraint umowa_ewidencja_id_osoba_fkey FOREIGN KEY (id_osoba) REFERENCES dane_osobowe(id) on update cascade on delete cascade;
+
+
+alter table zatrudnienie_odjazd drop constraint zatrudnienie_odjazd_id_zatrudnienie_fkey;
+
+alter table zatrudnienie_odjazd add constraint zatrudnienie_odjazd_id_zatrudnienie_fkey FOREIGN KEY (id_zatrudnienie) REFERENCES zatrudnienie(id) on update cascade on delete cascade;
+
+
+alter table zatwierdzone_jezyki drop constraint zatwierdzone_jezyki_id_znany_jezyk_fkey;
+
+alter table zatwierdzone_jezyki add constraint zatwierdzone_jezyki_id_znany_jezyk_fkey FOREIGN KEY (id_znany_jezyk) REFERENCES znane_jezyki(id_znany_jezyk) on update cascade on delete cascade;
+
+
+alter table osoby_bez_jezykow drop constraint osoby_bez_jezykow_id_osoby_fkey;
+
+alter table osoby_bez_jezykow add constraint osoby_bez_jezykow_id_osoby_fkey FOREIGN KEY (id_osoby) REFERENCES dane_osobowe(id) on update cascade on delete cascade;
+
+-- rem entire table ? osoby bez jezykow
+
+
+-- pos prawo jazdy
+-- deployed
+alter table pos_prawo_jazdy add column id_wiersz serial primary key;

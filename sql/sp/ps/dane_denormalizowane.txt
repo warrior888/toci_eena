@@ -1,0 +1,59 @@
+---coooool, but most likely not needed .... :P
+
+
+drop table dane_dodatkowe_denormalizowane;
+drop function SetDDDenormalizedRow(integer);
+drop function SetDDDenormalization () cascade;
+
+create table dane_dodatkowe_denormalizowane (
+    id_osoba integer unique references dane_osobowe(id),
+    dane text
+);
+
+create or replace function SetDDDenormalizedRow (osoba_id integer) returns void as $$
+declare
+    row_id integer; --will equal person id
+    dd_row record;
+    denormalized_data text;
+    i integer;
+begin
+    select into row_id id_osoba from dane_dodatkowe_denormalizowane where id_osoba = osoba_id;
+    i := 0;
+    denormalized_data := '';
+    FOR dd_row IN select ddl.id, (select dd.wartosc from dane_dodatkowe dd where dd.id_dane_dodatkowe_lista = ddl.id and dd.id_osoba = osoba_id) as wartosc from dane_dodatkowe_lista ddl where ddl.id_typ = 1 order by ddl.id LOOP
+    
+        IF i > 0 THEN
+            denormalized_data := denormalized_data || ',';
+        END IF;
+        
+        IF dd_row.wartosc is not null THEN
+            denormalized_data := denormalized_data || dd_row.wartosc;
+        ELSE
+            denormalized_data := denormalized_data || 'null';
+        END IF;
+        
+        i := i + 1;
+    END LOOP;
+    
+    IF row_id is null THEN
+        --insert
+        insert into dane_dodatkowe_denormalizowane (id_osoba, dane) values (osoba_id, denormalized_data);
+    ELSE
+        --update
+        update dane_dodatkowe_denormalizowane set dane = denormalized_data where id_osoba = osoba_id;
+    END IF;
+end;
+$$ language plpgsql;
+
+create or replace function SetDDDenormalization () returns trigger as $$
+declare
+begin
+    perform SetDDDenormalizedRow(NEW.id_osoba);
+    RETURN NEW;
+end;
+$$ language plpgsql;
+
+CREATE TRIGGER setDenormalization
+    AFTER INSERT OR UPDATE ON dane_dodatkowe
+    FOR EACH ROW
+    EXECUTE PROCEDURE SetDDDenormalization();

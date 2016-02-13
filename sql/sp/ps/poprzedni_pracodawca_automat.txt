@@ -1,0 +1,116 @@
+
+drop function UpdateFormerEmployerEmploymentInfo() cascade;
+drop function DeleteFormerEmployerEmploymentInfo() cascade;
+drop function former_employer_experience_format (integer, integer) cascade;
+
+--todo kinda protected, for triger usage. verify stability to avoid a clinch on some update
+create or replace function former_employer_experience_format (osoba_id integer, oddzial_id integer) returns void as $$
+declare
+    status_pasywny_id integer;
+    update_record integer;
+    employment_data record;
+    weeks_count integer;
+    delimiter char;
+begin
+    status_pasywny_id := 4;
+    delimiter := '/';
+    
+    select into update_record id_wiersz from poprzedni_pracodawca where id = osoba_id and id_oddzialy_klient = oddzial_id;
+    
+    --zawod.nazwa as zawod,
+    select into employment_data 
+        klient.nazwa as klient, panstwo.nazwa as panstwo, msc_biura.nazwa as miasto, oddzialy_klient.id as id_oddzial, oddzialy_klient.stanowisko as id_zawod 
+        from
+        zatrudnienie join klient on zatrudnienie.id_klient = klient.id
+                join panstwo on klient.id_panstwo_egz = panstwo.id
+            join oddzialy_klient on zatrudnienie.id_oddzial = oddzialy_klient.id
+                ---join zawod on oddzialy_klient.stanowisko = zawod.id
+                join miejscowosc_biuro on oddzialy_klient.id_biuro = miejscowosc_biuro.id
+                    join msc_biura on miejscowosc_biuro.id_msc_biuro = msc_biura.id
+        where zatrudnienie.id_osoba = osoba_id and id_oddzial = oddzial_id and id_status = status_pasywny_id and data_powrotu <= current_date limit 1;
+    
+    --no records for passive employment on that person on that employer - either delete or brought back active to work longer
+    --anyway no confirmed ended work period, no entry in former employer
+    IF employment_data.klient is null THEN
+        --in case there is a record in former employment
+        IF update_record is not null THEN
+            delete from poprzedni_pracodawca where id_wiersz = update_record;
+        END IF;
+        
+        RETURN;
+    END IF;
+    
+    
+    --select into weeks_count sum(ilosc_tyg) from zatrudnienie where id_osoba = osoba_id and id_oddzial = oddzial_id and id_status = status_pasywny_id and data_powrotu <= current_date group by id_oddzial;    
+    
+    select into weeks_count sum((data_powrotu - data_wyjazdu) / 7) from zatrudnienie where id_osoba = osoba_id and id_oddzial = oddzial_id and id_status = status_pasywny_id and data_powrotu <= current_date group by id_oddzial;    
+    
+    -- anglia/wroc³aw/E&A/branza/obowiazki/10 
+    
+    IF update_record is null THEN
+        --insert
+        insert into poprzedni_pracodawca (id, nazwa, id_grupa_zawodowa, id_oddzialy_klient) values (osoba_id, 
+            employment_data.panstwo || delimiter || employment_data.miasto || delimiter || employment_data.klient || delimiter || delimiter || delimiter || weeks_count || 'tyg'
+            , employment_data.id_zawod, oddzial_id);
+    ELSE
+        --update
+        update poprzedni_pracodawca set id_grupa_zawodowa = employment_data.id_zawod, nazwa = 
+        employment_data.panstwo || delimiter || employment_data.miasto || delimiter || employment_data.klient || delimiter || delimiter || delimiter || weeks_count || 'tyg'
+        where id_wiersz = update_record;
+    END IF;
+    
+    --END IF;
+end;
+$$ language plpgsql;
+
+create or replace function UpdateFormerEmployerEmploymentInfo () returns trigger as $$
+declare
+begin
+    perform former_employer_experience_format(NEW.id_osoba, NEW.id_oddzial);
+    RETURN NEW;
+end;
+$$ language plpgsql;
+
+create or replace function DeleteFormerEmployerEmploymentInfo () returns trigger as $$
+declare
+begin
+    perform former_employer_experience_format(OLD.id_osoba, OLD.id_oddzial);
+    RETURN OLD;
+end;
+$$ language plpgsql;
+
+--insert or update
+CREATE TRIGGER updatePopPracZatr
+    AFTER INSERT OR UPDATE ON zatrudnienie
+    FOR EACH ROW
+    EXECUTE PROCEDURE UpdateFormerEmployerEmploymentInfo();
+    
+
+--delete
+CREATE TRIGGER deletePopPracZatr
+    AFTER DELETE ON zatrudnienie
+    FOR EACH ROW
+    EXECUTE PROCEDURE DeleteFormerEmployerEmploymentInfo();
+    
+    
+--migration
+
+SELECT pg_stat_get_backend_pid(s.backendid) AS procpid, pg_stat_get_backend_activity(s.backendid) AS current_query FROM (SELECT pg_stat_get_backend_idset() AS backendid) AS s;
+    
+    
+
+create or replace function migrateZatrPopPrac() returns void as $$
+declare
+    wiersz record;
+begin
+    
+    FOR wiersz IN select id_osoba, id_oddzial from zatrudnienie where id_status = 4 group by id_osoba, id_oddzial order by id_osoba LOOP
+        execute former_employer_experience_format(wiersz.id_osoba, wiersz.id_oddzial);
+    END LOOP;
+    
+end;
+$$ language plpgsql;
+
+--select migrateZatrPopPrac();
+
+drop function migrateZatrPopPrac() ;

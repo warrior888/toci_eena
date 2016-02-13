@@ -1,0 +1,27 @@
+
+--essential
+alter table umowa_ewidencja add constraint un_osoba_zatrudnienie unique (id_osoba, id_wakat);
+
+
+
+select count(*) from zatrudnienie z1 where data_wyjazdu between '2011-10-28' and '2012-01-08';
+
+
+---unn
+select s1.id from (select id from zatrudnienie z1 where data_wyjazdu between '2011-10-28' and '2012-01-08' and 
+	(select count(*) from zatrudnienie z2 where z2.id_osoba = z1.id_osoba and z2.data_wyjazdu < '2011-10-28') = 0
+) as s1 union 
+(select id from 
+	(select id from zatrudnienie z1 where data_wyjazdu between '2011-10-28' and '2012-01-08' and 
+	(select count(*) from zatrudnienie z2 where z2.id_osoba = z1.id_osoba and z2.data_wyjazdu < '2011-10-28' and z1.id_klient = z2.id_klient) = 0
+) as n1)  union 
+
+
+
+--essential
+insert into umowa_ewidencja (id_osoba, id_wakat, id_konsultant, data) 
+
+select s1.id_osoba, s1.id, s1.id_pracownik, s1.data_wyjazdu from (select id_osoba, id, id_pracownik, data_wyjazdu from zatrudnienie z1 where id_status in (1,4) and data_wyjazdu between '2011-10-28' and '2012-01-08' and 
+(select count(*) from zatrudnienie z2 where z2.id_status in (1,4) and z2.id_osoba = z1.id_osoba and z2.data_wyjazdu between '2010-10-27' and '2011-10-26' 
+and z1.id_klient = z2.id_klient) = 0) as s1 left join umowa_ewidencja on (s1.id_osoba = umowa_ewidencja.id_osoba and s1.id = umowa_ewidencja.id_wakat) 
+where umowa_ewidencja.id_osoba is null;

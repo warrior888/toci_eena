@@ -1,0 +1,1 @@
+ALTER TABLE dane_osobowe ADD COLUMN isAbfahrtSent boolean DEFAULT FALSE;

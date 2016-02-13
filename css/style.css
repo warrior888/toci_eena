@@ -1,0 +1,206 @@
+BODY {
+	FONT-SIZE: 18px; 
+	/*color: #afafaf;*/
+	color: #111111;
+	/*text-shadow: 5px 5px 2px red;*/
+	FONT-FAMILY: Garamond; 
+	/*BACKGROUND-COLOR: #afafaf;*/
+	/*BACKGROUND-COLOR: #214c6c;*/
+	/*BACKGROUND-COLOR: #214c5c;*/
+	/*BACKGROUND-COLOR: #217c5c;*/
+	
+	background: url('../zdj/bgrnd.jpg') repeat-y;
+	/*background-color: transparent;*/
+	border: 0px;
+	scrollbar-base-color: #217c5c;
+	scrollbar-highlight-color: #67C8CB;
+	scrollbar-shadow-color: #67A8AB;
+	scrollbar-3dlight-color: #67A8AB;
+	scrollbar-arrow-color: #67989B;
+}
+	/*BACKGROUND: none transparent scroll repeat 0% 0%;*/
+	/*background-color: #67B8BB;*/
+	/*font-family: Garamond; */
+	/*font-size: 12pt;*/
+	
+
+a {
+	color: #EFEFEF; 
+	font-weight: normal; 
+	text-decoration: none;
+	font-size: 12px;
+}
+a:link {
+	COLOR: #EEEEEE;
+        TEXT-DECORATION: none;
+	font-family: Garamond;
+	font-size: 12px;
+}
+a:visited {
+	COLOR: #06B56E;
+        font-family: Garamond;
+        font-size: 12px;
+        TEXT-DECORATION: none;
+}
+a:hover {
+	COLOR: #14B387;
+        font-family: Garamond;
+        font-size: 12px;
+        TEXT-DECORATION: underline;
+}
+/*.formfield {
+	BORDER-RIGHT: #666666 1px solid; 
+	BORDER-TOP: #666666 1px solid; 
+	FONT-SIZE: 12px; 
+	BORDER-LEFT: #666666 1px solid; 
+	COLOR: #000000; 
+	BORDER-BOTTOM: #666666 1px solid; 
+	FONT-FAMILY: Arial, Verdana, Helvetica, sans-serif; 
+	BACKGROUND-COLOR: #f0f0f0
+	background: transparent;
+}*/
+.formsend {
+	BORDER-RIGHT: #666666 1px solid; 
+	BORDER-TOP: #666666 1px solid; 
+	FONT-WEIGHT: bold; 
+	FONT-SIZE: 11px; 
+	BORDER-LEFT: #666666 1px solid; 
+	COLOR: #ffffff; 
+	BORDER-BOTTOM: #666666 1px solid; 
+	FONT-FAMILY: Arial, Verdana, Helvetica, sans-serif; 
+	BACKGROUND-COLOR: #999999;
+	background: transparent;
+	}
+.formreset {
+	color: #afafaf;
+	BORDER-RIGHT: #666666 1px solid; 
+	BORDER-TOP: #666666 1px solid; 
+	FONT-WEIGHT: bold; 
+	FONT-SIZE: 12px; 
+	BORDER-LEFT: #666666 1px solid; 
+	BORDER-BOTTOM: #666666 1px solid; 
+	FONT-FAMILY: Arial, Verdana, Helvetica, sans-serif; 
+	BACKGROUND-COLOR: #517211;
+	background: transparent;
+}
+.rightSidePopUps {
+	color: #afafaf;
+	BORDER-RIGHT: #666666 1px solid; 
+	BORDER-TOP: #666666 1px solid; 
+	FONT-WEIGHT: bold; 
+	FONT-SIZE: 12px; 
+	BORDER-LEFT: #666666 1px solid; 
+	BORDER-BOTTOM: #666666 1px solid; 
+	FONT-FAMILY: Arial, Verdana, Helvetica, sans-serif; 
+	BACKGROUND-COLOR: #517211;
+	background: transparent;
+	width: 135px;
+}
+
+.tableSubmits {
+        font-family: Times New Roman;
+	FONT-WEIGHT: bold; 
+	BORDER-RIGHT: white 1px solid; 
+	BORDER-TOP: #f1f3fc 1px solid; 
+	BORDER-LEFT: #225588 1px solid; 
+	BORDER-BOTTOM: #225588 1px solid; 
+	BACKGROUND-COLOR: #a1c3dc;
+	/*color: #afcfbf;*/
+	color: #205035;
+	background: transparent;
+	}
+INPUT {
+        font-family: Times New Roman;
+	FONT-WEIGHT: bold; 
+	BORDER-RIGHT: white 1px solid; 
+	BORDER-TOP: #f1f3fc 1px solid; 
+	BORDER-LEFT: white 1px solid; 
+	BORDER-BOTTOM: white 1px solid; 
+	BACKGROUND-COLOR: #a1c3dc;
+	color: #afcfbf;
+	/*color: #205035;*/
+	background: transparent;
+	}
+SELECT {
+	color: #afafaf;
+	BORDER-RIGHT: 0px; 
+	BORDER-TOP: 0px; 
+	FONT-WEIGHT: bold; 
+	FONT-SIZE: 12px; 
+	font-style: normal;
+    font-family: Times New Roman;
+    TEXT-DECORATION:none;
+	BORDER-LEFT: 0px; 
+	BORDER-BOTTOM: 0px; 
+	/*BACKGROUND-COLOR: #a1c3dc;*/
+	BACKGROUND-COLOR: #214c6c;
+	/*background: transparent;*/
+	}
+IMG {
+    border: 0pt;
+    }
+TD {
+	/*background: transparent;*/
+	font-size: 18px;
+}
+/*.Container {
+	position: absolute;
+	top: 50px; left: 100px;
+	width: 400px;
+	height: 500px;
+	background: #FFF url(images/container_background.gif) no-repeat;
+}*/
+#Scroller-1 { 
+	position: absolute; 
+	overflow: hidden;
+	width: 205px;
+	height: 85%;
+  }
+#Scroller-1 p {
+	margin: 0; padding: 10px 20px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	text-indent: 20px;
+	color: #6F6048;
+}
+.Scroller-Container {
+	position: absolute;
+	top: 0px; left: 0px;
+	width: 200px;
+	height: 200px;
+    
+}
+.Scrollbar-Up {
+  cursor: pointer;
+  position: absolute;
+  top: 200px; left: 175px;
+  /*width: 18px; height: 24px;*/
+}
+.Scrollbar-Down {
+  cursor: pointer;
+  position: absolute;
+  top: 230 px; left: 175px;
+}
+
+.Scrollbar-left {
+      cursor: pointer;
+      position: absolute;
+      top: 96%; left: 49%;
+}
+.Scrollbar-right {
+	cursor: pointer;
+	position: absolute;
+	top: 96%; left: 51%;
+}
+.main-container {
+	position: absolute; 
+	top: 0px; left: 0px;
+	width: 95%;
+	height: 100%;
+}
+#central-container { 
+	position: absolute;
+	overflow: hidden;
+	width: 95%;
+	height: 92%;
+  }

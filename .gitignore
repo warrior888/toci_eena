@@ -1,0 +1,5 @@
+common-config.php
+public_html/
+.settings/
+.buildpath
+nbproject/

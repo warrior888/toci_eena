@@ -1,0 +1,19 @@
+
+insert into dane_dodatkowe_lista (nazwa, nazwa_wyswietlana, id_typ, edycja) values 
+('historia_zatrudnienia', 'Ma do¶œwiadczenie', (select id from typ where nazwa = 'bool'), false);
+
+
+
+insert into dane_dodatkowe_lista (nazwa, nazwa_wyswietlana, id_typ, edycja) values 
+('ma_umiejetnosci', 'Ma umiejêtno¶œci', (select id from typ where nazwa = 'bool'), false);
+
+
+
+---carefull with id tabela wysz
+
+insert into kolumny_wyszukiwanie (nazwa, id_typ, id_tabela_wyszukiwanie, kolejnosc, naglowek) values 
+('historia_zatrudnienia', 1, 20, (select max(kolejnosc) + 1 from kolumny_wyszukiwanie), 'Ma doœwiadczenie');
+
+
+insert into kolumny_wyszukiwanie (nazwa, id_typ, id_tabela_wyszukiwanie, kolejnosc, naglowek) values 
+('ma_umiejetnosci', 1, 20, (select max(kolejnosc) + 1 from kolumny_wyszukiwanie), 'Ma umiejêtnoœci');

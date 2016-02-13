@@ -1,0 +1,1 @@
+﻿ALTER TABLE msc_odjazdu DROP COLUMN strefa_id ;

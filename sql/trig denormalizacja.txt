@@ -1,0 +1,87 @@
+--design a table structure - highly denormalized with pattern driven serialization; purpose - extremely efficient searching.
+--currently the highest risk is behind dane dodatkowe, implement a serialized 'pivot' table first there. However, seek for interval data solution like wzrost.
+--poszukac sql owych scanf do wyswietlenia odfiltrowanych (lub nie) danych ... - json encode decode ... :)
+
+--queries - przy filrze joinuje, bez wali z idkami - musi bo to w pelni niezalezne ...
+
+
+--fix name constraint
+
+alter table dane_osobowe drop CONSTRAINT dane_osobowe_imie_fkey;
+alter table dane_osobowe add CONSTRAINT dane_osobowe_imie_fkey FOREIGN KEY (imie) REFERENCES imiona(nazwa) on update cascade;
+
+alter table dane_osobowe alter column imie set not null;
+
+drop FUNCTION updatename() cascade;
+
+--gender denormalization
+alter table plec add constraint plec_nazwa_unique unique(nazwa);
+
+alter table dane_osobowe add column plec varchar(10)  references plec(nazwa) on update cascade;
+----compact triggers !!!!
+
+UPDATE dane_osobowe d1 set plec = (select nazwa from plec where id = d1.id_plec);
+
+alter table dane_osobowe alter column plec set not null;
+
+--city denormalization
+alter table miejscowosc  add constraint miejscowosc_nazwa_unique unique(nazwa);
+
+alter table dane_osobowe add column miejscowosc varchar(30) references miejscowosc(nazwa) on update cascade;
+
+CREATE FUNCTION updateDODenormalized() RETURNS trigger AS $$
+declare
+
+begin
+    select into NEW.imie nazwa from imiona where id = NEW.id_imie;
+    select into NEW.plec nazwa from plec where id = NEW.id_plec;
+    select into NEW.miejscowosc nazwa from miejscowosc where id = NEW.id_miejscowosc; 
+    RETURN NEW;
+end;
+$$ LANGUAGE plpgsql;
+
+
+CREATE TRIGGER updateDenormalized
+    BEFORE INSERT OR UPDATE ON dane_osobowe
+    FOR EACH ROW
+    EXECUTE PROCEDURE updateDODenormalized();
+
+
+UPDATE dane_osobowe d1 set miejscowosc = (select nazwa from miejscowosc where id = d1.id_miejscowosc);
+
+alter table dane_osobowe alter column miejscowosc set not null;
+
+
+--languages denormalization
+
+alter table jezyki add constraint jezyki_nazwa_unique unique(nazwa);
+alter table poziomy add constraint poziomy_nazwa_unique unique(nazwa);
+
+alter table znane_jezyki add column jezyk varchar(12) references jezyki(nazwa) on update cascade;
+alter table znane_jezyki add column poziom varchar(12) references poziomy(nazwa) on update cascade;
+
+CREATE FUNCTION updatelangs() RETURNS trigger AS $$
+declare
+
+begin
+    select into NEW.jezyk nazwa from jezyki where id = NEW.id_jezyk; 
+    select into NEW.poziom nazwa from poziomy where id = NEW.id_poziom; 
+    RETURN NEW;
+end;
+$$ LANGUAGE plpgsql;
+
+
+CREATE TRIGGER updjezyki
+    BEFORE INSERT OR UPDATE ON znane_jezyki
+    FOR EACH ROW
+    EXECUTE PROCEDURE updatelangs();
+    
+UPDATE znane_jezyki set id = id where 1 = 1;
+
+alter table znane_jezyki alter column jezyk set not null;
+alter table znane_jezyki alter column poziom set not null;
+
+drop index kontakt_fkey;
+
+alter table kontakt alter column data set default now();
+alter table kontakt_historia alter column data set default now();

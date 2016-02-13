@@ -1,0 +1,2 @@
+--\i ps/poprzedni_pracodawca_automat.txt
+\i ps/dane_denormalizowane.txt

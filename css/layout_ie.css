@@ -1,0 +1,222 @@
+html {
+    
+}
+
+body {
+    background: url('../zdj/bgrnd.jpg');
+    background-repeat: repeat-y;
+    font-family: Arial;
+    font-size: 12px;
+}
+
+body.left {
+
+    background: url('../zdj/bgrnd_r.jpg') repeat-y scroll 100% 0;
+}
+
+body.clearBgnd {
+    background: none;
+    
+    
+}
+
+div.topBgnd {
+    background-image: url('../zdj/top.jpg'); 
+    background-repeat: no-repeat;  
+    height: 95px;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    background-color: #eff8ff;
+    width: 102.6%;
+}
+
+hr.topHr {
+    position: absolute;
+    left: 0px;
+    top: 93px;
+    background-color: #78a4ca;
+    width: 102.6%;
+}
+
+table.topTable {
+    
+    position: absolute;
+    top: 86px;
+}
+
+table {
+    font-size: 12px;
+}
+
+div {
+    font-size: 12px;
+}
+
+input {
+    font-size: 12px;
+    margin: 3px 5px;
+}
+
+select {
+    font-size: 12px;
+}
+
+option {
+    font-size: 12px;
+}
+
+.genericWidth {
+
+    width: 200px;
+}
+
+.gridTable {
+    
+}
+
+.gridTable tr.oddRow {
+    background-color: #f5f9fc;
+    border-top: 2px solid white;
+}
+
+.gridTable tr.evenRow {
+    background-color: #e5f1fa;
+    border-top: 2px solid white;
+}
+
+.gridTable tr.markedRow {
+    background-color: #ffd9da; /* d9596b */
+    border-top: 2px solid white;
+}
+
+.gridTable tr.hoveredRow {
+    background-color: #ccffcc;
+    border-top: 2px solid white;
+}
+
+/* work for ff, gch, but not ie */
+/*tr.oddRow:hover {
+    background-color: #afafaf;
+}*/
+.gridTable th {
+    background-color: #507ca1;
+    color: white;
+    font-weight: normal;
+    padding: 1px 3px;
+}
+.gridTable td {
+    border: inherit;
+    padding: 0 5px;
+    border-top: 2px solid white;
+}
+
+.gridTable .trEmb {
+    margin: 0 -5px;
+    padding: 3px;
+}
+
+/** inputs **/
+/* topTable */
+
+
+
+input.formfield {
+
+    border: 1px solid #91a7be;
+    background-color: #eff8ff;
+}
+
+input.formreset, button.formreset {
+    background-color: #6298c7;
+    color: white;
+    border: 1px solid #91a7be;
+}
+
+.topTable input.formreset {
+    
+    color: black;
+    background-color: white;
+    border: 0px;
+}
+
+.selectContainer select {
+    
+    background-color: #b6d9f7;
+    border: 1px solid #91a7be;
+    opacity: 0.4;
+    margin-top: -1px;
+    margin-right: -1px;
+}
+
+span.selectContainer {
+    background: url("../zdj/select-drop-btn.jpg") no-repeat scroll 100% 30% transparent;
+    width: auto;
+    height: 20px;
+}
+
+/** left side **/
+
+.leftSideButtons {
+    color: #112211;
+    border: 1px solid #eff8ff; 
+     
+    FONT-FAMILY: Arial, Verdana, Helvetica, sans-serif; 
+    background-color: #517211;
+    background: transparent;
+    width: 145px;
+}
+
+.btnBorder {
+    border: 1px solid #97abc4;
+}
+
+.peopleBtn {
+    background-color: #dbeeff;
+    border: 1px solid #97abc4;
+}
+/** unused **/
+.firmBtn {
+    background-color: #dbe2ff;
+    border: 1px solid #97abc4;
+}
+
+.admBtn {
+    background-color: #feebda;
+    border: 1px solid #97abc4;
+}
+/** eof unused **/
+
+.roseBkgnd {
+    background-color: #ffd9da;
+}
+
+.logoutBtn {
+    background-color: #ed1d24;
+    border: 1px solid #97abc4;
+}
+
+a {
+    color: #06B56E; 
+    font-weight: normal; 
+    text-decoration: none;
+    font-size: 12px;
+}
+a:link {
+    COLOR: #06B56E;
+    TEXT-DECORATION: none;
+    font-family: Garamond;
+    font-size: 12px;
+}
+a:visited {
+    COLOR: #96452E;
+    font-family: Garamond;
+    font-size: 12px;
+    TEXT-DECORATION: none;
+}
+a:hover {
+    COLOR: #14B387;
+    font-family: Garamond;
+    font-size: 12px;
+    TEXT-DECORATION: underline;
+}

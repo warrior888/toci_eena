@@ -1,0 +1,253 @@
+html {
+    background-color: #e4f1f7;
+}
+
+body {
+
+    font-family: Arial;
+    font-size: 12px;
+}
+
+.leftFloat {
+
+    float: left;
+}
+
+.rightFloat {
+
+    float: right;
+}
+
+
+table {
+    font-size: 12px;
+}
+
+div {
+    font-size: 12px;
+}
+
+div.headDiv {
+    margin: 16px;
+}
+
+div.selectDiv {
+
+    background-color: white;
+    border: 1px solid #91A7BE;
+    height: 18px; 
+/* gora prawa dol lewa */
+    margin: 1px 0px;
+    padding: 0px 8px;
+    position: absolute;
+    right: 15px;
+    width: 165px;
+
+}
+
+div.selectDiv.disabled {
+    background-color: #ddd;
+    color: #888;
+}
+
+div.bottomSummary {
+    margin: 30px;
+    font-weight: bold;
+}
+
+input.formfield {
+    
+    border: 1px solid #91a7be;
+    margin: 0 30px;
+}
+
+input.formreset, button.formreset {
+    background-color: #6298c7;
+    color: white;
+    border: 1px solid #91a7be;
+}
+
+input.required {
+    background-color: #e8caca;
+}
+
+input.psrequired {
+    background-color: #d0eacf;
+}
+
+.selectContainer select {
+    
+    background-color: #b6d9f7;
+    border: 1px solid #91a7be;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    filter: "alpha(opacity=0)";
+    margin-top: -1px;
+    margin-right: -1px;
+    width: 181px;
+}
+
+span.selectContainer {
+    background: url("../zdj/ddarrow.jpg") no-repeat scroll 100% 30% transparent;
+    width: auto;
+    height: 20px;
+    margin: 0 30px;
+    position: relative;
+}
+
+.gridTable {
+    
+}
+
+.gridTable tr {
+    
+    
+}
+
+.gridTable tr.oddRow {
+    background-color: #f5f9fc; 
+    
+}
+
+.gridTable tr.evenRow {
+    background-color: #c2e6f6; /* #e5f1fa */
+}
+
+.gridTable th {
+    background-color: #507ca1;
+    color: white;
+    font-weight: normal;
+    padding: 1px 3px;
+}
+.gridTable td {
+
+    border-top: 2px solid white;   
+    padding: 1px 5px;
+}
+
+.gridTable .trEmb {
+    margin: 0 -5px;
+    padding: 3px;
+}
+
+label.inputLabel {
+    float: left;
+    margin: 3px 8px;
+}
+
+input#zgoda {
+    border: 0px;
+}
+
+input[type="button"].margin {
+    margin: 3px 8px;
+    float: left;
+    width: 180px;
+}
+
+input.blocks
+ {
+    display: block;
+    margin: 3px 8px;
+    width: 180px;
+}
+
+
+input.popbutton {
+    background: #368AEC;
+    width: 170px;
+}
+
+img {
+    border: 0px;
+}
+/*
+input.margin {
+    margin: 3px 8px;
+    float: left;
+    width: 180px;
+}*/
+
+
+div#popup {
+    background-image: url(../zdj/grey.gif);
+    top: 0px; 
+    left: 0px; 
+    z-index: 2;  
+    position: absolute; 
+    text-align:center;
+    /*opacity: 0.95; 
+    filter: alpha(opacity=95);*/
+    height: 100%; 
+    width: 100%;
+}
+div.inPopup {
+    position: relative; 
+    margin: 0 auto;
+    vertical-align: middle;
+} 
+
+
+
+div.divExtraInfo {
+
+    float: right;
+    margin: 0 15px;
+    padding: 2px 8px;
+    width: 197px;
+}
+
+td.extrasContainer {
+
+    vertical-align: top;
+}
+
+span.selectMinMargin {
+    margin: 0 10px;
+}
+
+div.errorMsg {
+    color: red;
+    margin: 10px;
+    width: 900px;
+}
+
+div.masterCongrats {
+    margin: 30px;
+    text-align: center;
+}
+
+div.congratsContainer {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+a {
+    color: #06B56E; 
+    font-weight: normal; 
+    text-decoration: none;
+    font-size: 18px;
+    font-family: Garamond; 
+}
+a:link {
+    COLOR: #06B56E;
+    TEXT-DECORATION: none;
+    font-family: Garamond;
+    font-size: 18px;
+}
+a:visited {
+    COLOR: #96452E;
+    font-family: Garamond;
+    font-size: 18px;
+    TEXT-DECORATION: none;
+}
+a:hover {
+    COLOR: #14B387;
+    font-family: Garamond;
+    font-size: 18px;
+    TEXT-DECORATION: underline;
+}
+
+table.empFormWideTable {
+    width: 550px;
+}

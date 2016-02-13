@@ -1,0 +1,119 @@
+drop function setLanguages (int, int[], int[], int[]);
+drop FUNCTION setAdditionalInfoById (INTEGER, INTEGER, text);
+drop function setAdditionalInfo (int, varchar, text);
+drop function setAdditionalRegistrationInfoById (int, int, text);
+
+---set info in dane dodatkowe for a system person for info string name
+CREATE FUNCTION setAdditionalInfo (personId INTEGER, infoName VARCHAR(15), value text) RETURNS INT AS $$
+DECLARE
+    addInfoId INTEGER;
+    personInfoId INTEGER;
+BEGIN
+    SELECT INTO addInfoId id from dane_dodatkowe_lista where nazwa = infoName;
+    IF addInfoId is null THEN
+        RETURN 0;
+    END IF;
+    SELECT INTO personInfoId id from dane_dodatkowe where id_osoba = personId and id_dane_dodatkowe_lista = addInfoId;
+    IF personInfoId is null THEN
+        --insert
+        insert into dane_dodatkowe (id_osoba, id_dane_dodatkowe_lista, wartosc) values (personId, addInfoId, value);
+    ELSE
+        --update
+        update dane_dodatkowe set wartosc = value where id = personInfoId;
+    END IF;
+    RETURN 1;
+END;
+$$ LANGUAGE plpgsql;
+
+
+CREATE FUNCTION setAdditionalInfoById (personId INTEGER, infoId INTEGER, value text) RETURNS INT AS $$
+DECLARE
+    addInfoId INTEGER;
+    personInfoId INTEGER;
+BEGIN
+    --test if id is ok, could be removed, on worst condition insert is gonna fail
+    SELECT INTO addInfoId id from dane_dodatkowe_lista where id = infoId;
+    IF addInfoId is null THEN
+        RETURN 0;
+    END IF;
+    SELECT INTO personInfoId id from dane_dodatkowe where id_osoba = personId and id_dane_dodatkowe_lista = addInfoId;
+    IF personInfoId is null THEN
+        --insert
+        insert into dane_dodatkowe (id_osoba, id_dane_dodatkowe_lista, wartosc) values (personId, addInfoId, value);
+    ELSE
+        --update
+        update dane_dodatkowe set wartosc = value where id = personInfoId;
+    END IF;
+    RETURN 1;
+END;
+$$ LANGUAGE plpgsql;
+
+--//wait for answer to the question - can finally objects be used ?? or more precisely can ARRAY of COMPOSITE TYPE be used ? I guess in python ... :P
+--
+CREATE FUNCTION setLanguages (personId int, languageId int[], levelId int[], confirmerId int[]) RETURNS INT AS $$
+DECLARE
+    row znane_jezyki;
+    licznik INTEGER;
+    langId INTEGER;
+    currentLevel INTEGER;
+    langsCount INTEGER;
+    addInfoRes INTEGER;
+BEGIN
+    licznik := 1;
+    WHILE (languageId[licznik] is not null and levelId[licznik] is not null) LOOP
+        SELECT INTO row * from znane_jezyki WHERE id = personId and id_jezyk = languageId[licznik];
+        langId := row.id_znany_jezyk;
+        currentLevel := row.id_poziom;
+        IF (currentLevel is null or currentLevel != levelId[licznik]) THEN
+            IF langId is not null THEN
+                --update
+                UPDATE znane_jezyki set id_poziom = levelId[licznik] where id_znany_jezyk = langId;
+                DELETE FROM zatwierdzone_jezyki where id_znany_jezyk = langId;
+            ELSE
+                --insert
+                SELECT INTO langId nextval('znane_jezyki_id_znany_jezyk_seq');
+                INSERT INTO znane_jezyki (id_znany_jezyk, id, id_jezyk, id_poziom) values (langId, personId, languageId[licznik], levelId[licznik]);
+            END IF;
+            IF confirmerId[licznik] > 0 THEN
+                INSERT INTO zatwierdzone_jezyki (id_znany_jezyk, id_konsultant) values (langId, confirmerId[licznik]);
+            END IF;
+        END IF;
+        licznik := licznik + 1;
+    END LOOP;
+    --dane dodatkowe
+    SELECT INTO langsCount count(*) from znane_jezyki where id = personId;
+    
+    IF langsCount > 0 THEN
+        select into addInfoRes setAdditionalInfo (personId, 'zna_jezyk', 'tak');
+    ELSE
+        select into addInfoRes setAdditionalInfo (personId, 'zna_jezyk', 'nie');
+    END IF;
+    --todo: error servicing, rollback on error ?
+    RETURN addInfoRes;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE FUNCTION setAdditionalRegistrationInfoById (candidateId INTEGER, infoId INTEGER, value text) RETURNS INT AS $$
+DECLARE
+    addInfoId INTEGER;
+    personInfoId INTEGER;
+BEGIN
+    SELECT INTO addInfoId id from dane_dodatkowe_lista where id = infoId;
+    IF addInfoId is null THEN
+        RETURN 0;
+    END IF;
+    SELECT INTO personInfoId id from dane_dodatkowe_ankieta where id_osoba = candidateId and id_dane_dodatkowe_internet_lista = addInfoId;
+    IF personInfoId is null THEN
+        --insert
+        insert into dane_dodatkowe_ankieta (id_osoba, id_dane_dodatkowe_internet_lista, wartosc) values (candidateId, addInfoId, value);
+    ELSE
+        --update
+        update dane_dodatkowe_ankieta set wartosc = value where id = personInfoId;
+    END IF;
+    RETURN 1;
+END;
+$$ LANGUAGE plpgsql;
+
+select * from setLanguages (9466, ARRAY[1,2,3], ARRAY[1,2,1], ARRAY[4,0,0]);
+
+--select * from setLanguage(1, ARRAY[(1, 'nazwa')]);

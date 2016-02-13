@@ -1,0 +1,88 @@
+H1 {
+	font-weight: bold;
+	font-size: 18pt;
+	line-height: 18pt;
+	font-family: Monotype Corsiva,helvetica;
+	font-variant: normal;
+	font-style: normal;
+}
+H2 {
+	font-weight: bold;
+	font-size: 10pt;
+	line-height: 18pt;
+	font-family: Book Antiqua,helvetica;
+	font-variant: normal;
+	font-style: normal;
+}
+BODY {
+	FONT-SIZE: 11px; 
+	COLOR: #9f9f9f; 
+	FONT-FAMILY: "trebuchet ms", helvetica, sans-serif; 
+	BACKGROUND-COLOR: #fff
+	color: black;
+	/*background-color: #67B8BB;*/
+	/*font-family: Garamond; */
+	/*font-size: 12pt;*/
+	TEXT-DECORATION: none;
+	scrollbar-base-color: #67B8BB;
+	scrollbar-highlight-color: #67C8CB;
+	scrollbar-shadow-color: #67A8AB;
+	scrollbar-3dlight-color: #67A8AB;
+	scrollbar-arrow-color: #67989B;
+}
+a {
+	color: #555555; 
+	font-weight: normal; 
+	text-decoration: none;
+}
+a:link {
+	COLOR: #DFDFDF;
+	TEXT-DECORATION: none;
+        font-family: Garamond;
+	font-size: 10pt;
+}
+a:visited {
+	COLOR: #06556E;
+        font-family: Garamond;
+        font-size: 10pt;
+        TEXT-DECORATION: none;
+}
+a:hover {
+	COLOR: #2423B7;
+        font-family: Garamond;
+        font-size: 10pt;
+        TEXT-DECORATION: none;
+}
+hr {
+	color: #CDD0CD; height: 1px; border: 0;
+}
+.table1 {
+	background-image: url("bgtop.gif");
+	background-repeat: no-repeat;
+	text-align: right;
+}
+.table11 {
+	background-color: #6dacb1;
+}
+.click {
+	background-image: url("bgtop.gif");
+	background-repeat: no-repeat;
+	vertical-align: top;
+	text-align: left;
+}
+.firma {
+	background-image: url("bgmain.gif");
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	vertical-align: top;
+	text-align: left;
+}
+.wypunktowanie {
+	list-style-type: circle;
+ }
+.wypunktowanie2 {
+        list-style-type: decimal;
+}
+.img {
+	border: 0pt;
+}

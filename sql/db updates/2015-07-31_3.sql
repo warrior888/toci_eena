@@ -1,0 +1,1 @@
+﻿insert into strefy (msc_odjazdu_id, przewoznik_id, strefa_id) SELECT id, 4, 1 FROM msc_odjazdu;

@@ -1,0 +1,14 @@
+--nazwac troche inaczej
+
+alter table zawod add column kod_grupy_2011 varchar(5) not null default 0;
+
+alter table zawod add column nazwa_2011 text not null default '';
+
+alter table zawod add column nazwa_org_2011 text not null default '';
+
+
+-----
+
+update zawod set nazwa_org_2011 = nazwa_org;
+
+update zawod set nazwa_org = nazwa;

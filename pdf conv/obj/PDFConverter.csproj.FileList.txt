@@ -1,0 +1,7 @@
+bin\Debug\PDFConverter.exe
+bin\Debug\PDFConverter.pdb
+obj\Debug\ResolveAssemblyReference.cache
+obj\Debug\PDFConverter.MainForm.resources
+obj\Debug\PDFConverter.Properties.Resources.resources
+obj\Debug\PDFConverter.exe
+obj\Debug\PDFConverter.pdb

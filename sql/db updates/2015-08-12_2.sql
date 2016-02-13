@@ -1,0 +1,1 @@
+﻿  UPDATE widoki SET sql = 'select id, imie, nazwisko, data_urodzenia, komorka, data_wyjazdu, data_powrotu, msc_odjazdu, przystanek, godz_odjazdu, biuro, id_przewoznik, miejsce_docelowe, osoba_kontaktowa from grupa_na_wyjazd' WHERE Id = 1

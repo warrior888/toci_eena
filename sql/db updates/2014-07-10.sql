@@ -1,0 +1,1 @@
+alter table widoki_edit ALTER co type character varying(60);

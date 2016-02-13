@@ -1,0 +1,2 @@
+﻿update strefy SET strefa_id = 2 WHERE msc_odjazdu_id IN (148, 153, 94, 191, 89, 152, 93, 92, 124) AND przewoznik_id = 4;
+update strefy SET strefa_id = 3 WHERE msc_odjazdu_id IN (145, 88, 86, 130, 128, 127, 133, 132, 105, 91, 90, 85, 126, 87) AND przewoznik_id = 4;

@@ -1,0 +1,45 @@
+--done
+alter table firma alter column nazwa type varchar(100);
+
+--dev 2012 n1
+--done
+create table log_manager (
+    id serial primary key,
+    log_level integer not null,
+    time timestamp not null default now(),
+    msg text not null
+);
+
+--dev 2012 n1
+--done
+alter table zatwierdzone_jezyki alter column data set default now();
+--dev 2012 n1
+--done
+alter table poprzedni_pracodawca_ankieta add column id_wiersz serial primary key;
+
+alter table telefon add constraint osoba_un_tel unique(id, nazwa);
+
+alter table telefon_kom add constraint upk_id_osoba unique(id);
+
+alter table umiejetnosci_osob add constraint un_id_id_um unique (id, id_umiejetnosc);
+
+--done
+alter table znane_jezyki add constraint un_id_osoba_id_jezyk unique(id, id_jezyk);
+--done
+alter table jezyki_internet add constraint un_id_os_id_jezyk unique(id, id_jezyk);
+
+--works !
+--done
+alter table dane_dodatkowe add constraint un_id_dane_id_osoba unique (id_dane_dodatkowe_lista, id_osoba);
+
+
+--insert syntax designed to avoid doubles
+--tests
+insert into umiejetnosci_osob (id, id_umiejetnosc) 
+select f1.id, f1.id_umiejetnosc from 
+(
+    values
+    (9466, 2),
+    (9466, 4)
+    
+) as f1 (id, id_umiejetnosc) left join umiejetnosci_osob f2 using(id, id_umiejetnosc) where f2.id is null;

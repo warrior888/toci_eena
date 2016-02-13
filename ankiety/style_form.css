@@ -1,0 +1,72 @@
+body
+{
+	font-size: 12px;
+    font-family: 'Verdana', serif-serif;
+    color: #333333;
+}
+
+table
+{
+	width:825px;
+	font-size: 12px;
+}
+table table
+{
+	width:auto;
+}
+td
+{
+	width:200px;
+}
+tr
+{
+	margin-bottom:5px;
+	
+}
+table input.formfield,table input.required,table input.psrequired, table select
+{
+	width:188px;
+	float:right;
+    color: #999999;
+	border:1px solid #ccc;
+}
+table input.required
+{
+	border:1px solid #c00;
+}
+table input.psrequired
+{
+	border:1px solid #090;
+}
+
+table input.formfield:hover, table select:hover
+{
+	border:1px solid #052B8C;
+}
+table input.psrequired:hover
+{
+	border:1px solid #0c0;
+}
+table input.required:hover
+{
+	border:1px solid #a00;
+}
+table input.popbutton
+{
+	width:195px;
+	color:#052B8C;
+	float:left;
+	cursor:pointer;
+}
+table input.submit
+{
+	color:#052B8C;
+	cursor:pointer;
+}
+div.text_header
+{
+	color: #052B8C;
+    font-weight: bold;
+    text-align: justify;
+    width: 100%;
+}
