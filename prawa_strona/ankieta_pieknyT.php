@@ -75,8 +75,6 @@ require_once("../conf.php");
                 }
 				$html.= "<tr><td align = 'LEFT' nowrap>".$text."</td><td align = 'RIGHT'>".$data[$header]."</td></tr>";
             }
-			
-			
 			return $html;
 		}
 	}
