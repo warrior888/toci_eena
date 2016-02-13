@@ -65,6 +65,12 @@ abstract class View
      * @desc FormValidator validator
      */
     protected $formValidator;
+    
+    /**
+     * Person Id
+     * @var int
+     */
+    protected $personId;
 
 
     protected $person;

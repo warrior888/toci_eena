@@ -5,6 +5,68 @@
 <link href="css/style.css" rel="stylesheet" type="text/css"></head>
 </head>
 <?php
+require_once("../conf.php");
+	class Ankieta extends View
+	{
+		protected $cvDataLogic;
+		
+		protected $headers = array
+            (
+                'id' => "Id:", 
+                'imie' => "Imie:", 
+                'nazwisko' => "Nazwisko:", 
+                'plec' => "Plec:", 
+                'data_urodzenia' => "Data urodzenia:", 
+                'msc_ur' => "Miejsce urodzenia:", 
+                'msc' => "Miejsce zamieszkania:", 
+                'ulica' => "Ulica:", 
+                'kod' => "Kod pocztowy:",
+                'wyksztalcenie' => "Wyksztalcenie:", 
+                'zawod' => "Zawod:",  
+                'telefon' => "Telefon:", 
+                'tel_kom' => "Telefon komorkowy:", 
+                'email' => "Email:", 
+                'paszport' => "Nr paszoprtu:", 
+                'data_waznosci' => "Data wa¿no¶ci:",
+                'sofi' => "Sofi:", 
+                'bank' => "Bank:", 
+                'swift' => "Swift:", 
+                'konto' => "Nr konta:",
+                'prawo_jazdy' => "Prawo jazdy:", 
+                'jezyki' => "Jêzyki obce:", 
+                'nr_obuwia' => "Numer obuwia:", 
+                'poprzedni_pracodawca' => "Poprzedni pracodawca:", 
+                'klient' => "Klient:", 
+                'data_wyjazdu' => "Data wyjazdu:", 
+                'ilosc_tyg' => "Ilo¶æ tygodni:", 
+                'biuro' => "Biuro:"
+            );
+		
+		public function __construct()
+		{
+			$this->cvDataLogic = new CvDataLogic();
+			$this->personId = Utils::PodajIdOsoba();
+		}
+		
+		public function run() 
+		{
+			return $this->renderAnkieta();
+		}
+		
+		protected function renderAnkieta()
+		{
+			$data = $cvDataLogic->getUserData($this->personId);
+			$html = '';
+			
+			foreach ($this->headers as $header => $text) 
+			{
+				
+			}
+			
+			return $html;
+		}
+	}
+
     session_start();
     if (empty($_SESSION['uzytkownik']))
     {
@@ -13,7 +75,7 @@
     else
     {
         require("../naglowek.php");
-	    require("../conf.php");
+	    require_once("../conf.php");
         require_once '../bll/cv.php';
         
         $id_osoba = Utils::PodajIdOsoba();

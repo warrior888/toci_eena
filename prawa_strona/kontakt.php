@@ -467,29 +467,7 @@
         }
     }
     
-    CommonUtils::SessionStart();
-
-    try {
-        $output = new ContactsView();
-
-        if (!$output->getUser()->isLogged())
-        {
-            require 'logowanie.php';
-            die();
-        }
-        else
-        {
-            $html = $output->run();
-        }
-    } catch (ViewException $e) {
     
-        LogManager::log(LOG_ERR, '['.__FILE__.'] Output instantiate/run error: '.$e->getMessage(), $e);
-        $html = CommonUtils::getViewExceptionMessage($e);
-    } catch (Exception $e) {
-        
-        LogManager::log(LOG_ERR, '['.__FILE__.'] Output instantiate/run unhandled exception: '.$e->getMessage(), $e);
-        $html = CommonUtils::getServerErrorMsg();
-    }
     
     //echo '<html>';
     //HelpersUI::addHtmlBasicHeaders(HelpersUI::PATH_LEVEL_1);

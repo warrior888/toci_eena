@@ -9,6 +9,10 @@
     
     $qualificationsHtml .= '<div class="qualificationsContainer">';
     require 'kontakt.php';
+    $contactsView = new ContactsView();
+    
+    $html = $contactsView->execute();
+    
     $qualificationsHtml .= $html;
     $qualificationsHtml .= '</div>';
     
